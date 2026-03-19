@@ -35,6 +35,12 @@ namespace InventoryOrderingSystem.Repository.Customers
             return _context.Customers.ToListAsync();
         }
 
+        public async Task<Customer> GetByIdAsync(int customerId)
+        {
+            var customer = await _context.Customers.FirstOrDefaultAsync(x => x.CustomerId == customerId);
+            return customer;
+        }
+
         public async Task UpdateAsync(Customer customer)
         {
             _context.Customers.Update(customer);

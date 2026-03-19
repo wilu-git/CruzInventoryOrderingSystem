@@ -9,6 +9,7 @@ namespace InventoryOrderingSystem.Repository.Customers
 
         //Read
         public Task<List<Customer>> GetAllAsync();
+        public Task<Customer> GetByIdAsync(int customerId);
 
         //Update
         public Task UpdateAsync(Customer customer);
@@ -16,6 +17,7 @@ namespace InventoryOrderingSystem.Repository.Customers
 
         //Delete
         public Task DeleteAsync(int customerId);
+
 
 
     }
