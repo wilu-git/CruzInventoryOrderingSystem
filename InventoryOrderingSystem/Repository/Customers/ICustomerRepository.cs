@@ -10,6 +10,7 @@ namespace InventoryOrderingSystem.Repository.Customers
         //Read
         public Task<List<Customer>> GetAllAsync();
         public Task<Customer> GetByIdAsync(int customerId);
+        public Task<Customer> GetByNameAsync(string customerName);
 
         //Update
         public Task UpdateAsync(Customer customer);

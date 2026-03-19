@@ -41,6 +41,11 @@ namespace InventoryOrderingSystem.Repository.Customers
             return customer;
         }
 
+        public async Task<Customer> GetByNameAsync(string customerName)
+        {
+            return await _context.Customers.FirstOrDefaultAsync(x => x.FirstName == customerName || x.LastName == customerName);
+        }
+
         public async Task UpdateAsync(Customer customer)
         {
             _context.Customers.Update(customer);

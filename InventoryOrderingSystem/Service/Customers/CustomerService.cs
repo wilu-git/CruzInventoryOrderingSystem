@@ -31,12 +31,24 @@ namespace InventoryOrderingSystem.Service.Customers
 
         public Task<Customer> GetCustomerByIdAsync(int customerId)
         {
-            var customer = _customerRepository.
+            var customer = _customerRepository.GetByIdAsync(customerId); 
+            
+            if(customer == null)
+            {
+                throw new Exception($"Customer with ID {customerId} not found.");
+            }
+            
+            return customer;
         }
 
-        public Task<Customer> GetCustomerByNameAsync(string customerName)
+        public async Task<Customer> GetCustomerByNameAsync(string customerName)
         {
-            throw new NotImplementedException();
+            var customer = await _customerRepository.GetByNameAsync(customerName);
+            if (customer == null)
+            {
+                throw new Exception($"Customer with name {customerName} not found.");
+            }   
+            return customer;
         }
     }
 }
