@@ -38,7 +38,7 @@ namespace InventoryOrderingSystem.Helpers
 
         public static bool VerifyPassword(string enteredPassword, string storedHash)
         {
-            byte[] hashBytes = Convert.FromBase64String(enteredPassword);
+            byte[] hashBytes = Convert.FromBase64String(storedHash);
             byte[] salt = new byte[saltSize];
             Array.Copy(hashBytes, 0, salt, 0, saltSize);
             byte[] hash = Rfc2898DeriveBytes.Pbkdf2(

@@ -1,6 +1,8 @@
 using InventoryOrderingSystem.Models.Database;
 using InventoryOrderingSystem.Repository.Admins;
+using InventoryOrderingSystem.Repository.Customers;
 using InventoryOrderingSystem.Service.Admins;
+using InventoryOrderingSystem.Service.Customers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +27,9 @@ namespace InventoryOrderingSystem
             //Let us add the services and repositories
             builder.Services.AddScoped<IAdminsService, AdminsService>();
             builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             //Future Proofing adding the authentication 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

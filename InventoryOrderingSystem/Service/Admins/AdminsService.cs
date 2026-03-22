@@ -14,18 +14,20 @@ namespace InventoryOrderingSystem.Service.Admins
         }
         public async Task<LoginResponseModel> LoginAdmin(LoginModel model)
         {
-            var userData = await _repo.GetAdminUserAsync(model.Username);
-            if (userData == null)
+            var userData = await _repo.GetAdminUserAsync(model.Username); //we first get the username 
+            if (userData == null) //if user is empty LoginReponseModel will return false
             {
+                // Return unsuccessful login response if user is not found in the database
                 return new LoginResponseModel
                 {
-                    UserId = 0,
                     LoginSuccessful = false
                 };
             }
 
+            // Verify the provided password against the stored hashed password
             var isPwMatch = SecurityHelper.VerifyPassword(model.Password, userData.Password);
 
+            // Return login response with user ID and verification result
             return new LoginResponseModel
             {
                 UserId = userData.AdministratorId,

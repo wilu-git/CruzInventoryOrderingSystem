@@ -1,0 +1,89 @@
+﻿@model LoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-7">
+                <div class="card shadow">
+                    <div class="card-body p-4">
+                        <h2 class="text-center fw-bold mb-4">Admin Login</h2>
+
+                        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                        {
+
+                            <div class="mb-3">
+                                @Html.LabelFor(m => m.Username, new { @class = "form-label fw-semibold" })
+                                @Html.TextBoxFor(m => m.Username, new
+                                {
+                                    @class = "form-control",
+                                                        placeholder = "Enter username"
+                                                        })
+                            @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(m => m.Password, new { @class = "form-label fw-semibold" })
+                            @Html.PasswordFor(m => m.Password, new
+                                                        {
+                                    @class = "form-control",
+                                                        placeholder = "Enter password"
+                                                        })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                        </div>
+                                                }
+
+                        <div class="text-center mt-3">
+                            <small class="text-muted">Enter your admin credentials to continue.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '@TempData["SuccessMessage"]',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Login Failed',
+                text: '@TempData["ErrorMessage"]',
+                confirmButtonText: 'Try Again'
+            });
+        </script>
+    }
+</body>
+</html>

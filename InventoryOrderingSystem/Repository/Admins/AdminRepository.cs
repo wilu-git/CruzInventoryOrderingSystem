@@ -1,4 +1,5 @@
 ﻿using InventoryOrderingSystem.Models.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace InventoryOrderingSystem.Repository.Admins
 {
@@ -16,9 +17,10 @@ namespace InventoryOrderingSystem.Repository.Admins
             await _context.SaveChangesAsync();
         }
 
-        public Task<Administrator> GetAdminUserAsync(string username)
+        public async Task<Administrator?> GetAdminUserAsync(string username)
         {
-            throw new NotImplementedException();
+            var admin = await _context.Administrators.FirstOrDefaultAsync(x => x.Username == username);
+            return admin;
         }
     }
 }
