@@ -32,6 +32,11 @@ namespace InventoryOrderingSystem.Repository.Orders
             return orders;
         }
 
+        public async Task<Order?> GetByIdAsync(int id)
+        {
+            return await _context.Orders.FirstOrDefaultAsync(x => x.OrderId == id);
+        }
+
         public Task UpdateAsync(Order order)
         {
             _context.Orders.Update(order);

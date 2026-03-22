@@ -20,6 +20,7 @@ namespace InventoryOrderingSystem.Repository.Customers
             await _context.SaveChangesAsync();
         }
 
+
         public async Task DeleteAsync(int customerId)
         {
             var customer = await _context.Customers.FirstOrDefaultAsync(x => x.CustomerId == customerId);
@@ -41,7 +42,7 @@ namespace InventoryOrderingSystem.Repository.Customers
             return customer;
         }
 
-        public async Task<Customer> GetByNameAsync(string customerName)
+        public async Task<Customer?> GetByNameAsync(string customerName)
         {
             return await _context.Customers.FirstOrDefaultAsync(x => x.FirstName == customerName || x.LastName == customerName);
         }

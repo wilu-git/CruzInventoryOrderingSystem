@@ -1,4 +1,5 @@
 ﻿using InventoryOrderingSystem.Models.Database;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace InventoryOrderingSystem.Repository.Customers
 {
@@ -10,7 +11,7 @@ namespace InventoryOrderingSystem.Repository.Customers
         //Read
         public Task<List<Customer>> GetAllAsync();
         public Task<Customer> GetByIdAsync(int customerId);
-        public Task<Customer> GetByNameAsync(string customerName);
+        public Task<Customer?> GetByNameAsync(string customerName);
 
         //Update
         public Task UpdateAsync(Customer customer);

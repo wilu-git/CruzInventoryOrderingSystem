@@ -11,10 +11,26 @@ namespace InventoryOrderingSystem.Service.Customers
             _customerRepository = customerRepository;
         }
 
-        public async Task<bool> CreateCustomerAsync(Customer customer)
+        public async Task CreateCustomerAsync(Customer customer)
         {
             await _customerRepository.AddAsync(customer);
+        }
+
+        public async Task<bool> CustomerIsActive(int customerId)
+        {
+            Customer customer = await _customerRepository.GetByIdAsync(customerId);
+
+            if (customer == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (customer.IsActive == false)
+            {
+                return false;
+            }
+
             return true;
+
         }
 
         public async Task<bool> DeleteCustomerAsync(int customerId)
@@ -49,6 +65,7 @@ namespace InventoryOrderingSystem.Service.Customers
                 throw new Exception($"Customer with name {customerName} not found.");
             }   
             return customer;
-        }
+        }     
+
     }
 }

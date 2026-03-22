@@ -22,20 +22,20 @@ namespace InventoryOrderingSystem.Service.Orders
             return true;
         }
 
-        public Task<List<Order>> GetAllOrdersAsync()
+        public async Task<List<Order>> GetAllOrdersAsync()
         {
-            var orders = _orderRepository.GetAllAsync();
+            var orders = await _orderRepository.GetAllAsync();
             return orders;
         }
 
-        public Task<Order> GetOrderByIdAsync(int orderId)
+        public async Task<Order> GetOrderByIdAsync(int orderId)
         {
-            var order = _orderRepository.GetAllAsync().Result.FirstOrDefault(x => x.OrderId == orderId);
+            var order = await _orderRepository.GetByIdAsync(orderId);
             if (order == null)
             {
                 throw new Exception($"Order with ID {orderId} not found.");
             }
-            return Task.FromResult(order);
+            return order;
         }
 
         public Task UpdateOrderAsync(Order order)

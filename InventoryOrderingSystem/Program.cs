@@ -1,3 +1,9 @@
+using InventoryOrderingSystem.Models.Database;
+using InventoryOrderingSystem.Repository.Admins;
+using InventoryOrderingSystem.Service.Admins;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+
 namespace InventoryOrderingSystem
 {
     public class Program
@@ -9,8 +15,24 @@ namespace InventoryOrderingSystem
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            var app = builder.Build();
+            // Construct Database Context
+            builder.Services.AddDbContext<InventoryOrderingSystemContext>(options =>
+            {
+                //Get Connection String
+                options.UseSqlServer(builder.Configuration.GetConnectionString("InventoryOrderingSystem"));
+            });
 
+            //Let us add the services and repositories
+            builder.Services.AddScoped<IAdminsService, AdminsService>();
+            builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+
+            //Future Proofing adding the authentication 
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                });
+
+            var app = builder.Build();
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -22,6 +44,7 @@ namespace InventoryOrderingSystem
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();
