@@ -1,4 +1,6 @@
-﻿using InventoryOrderingSystem.Models.Database;
+﻿using InventoryOrderingSystem.Helpers;
+using InventoryOrderingSystem.Models;
+using InventoryOrderingSystem.Models.Database;
 using InventoryOrderingSystem.Repository.Customers;
 
 namespace InventoryOrderingSystem.Service.Customers
@@ -16,13 +18,18 @@ namespace InventoryOrderingSystem.Service.Customers
             await _customerRepository.AddAsync(customer);
         }
 
+        public async Task<bool> CustomerExists(string username)
+        {
+            return await _customerRepository.CustomerExists(username);
+        }
+
         public async Task<bool> CustomerIsActive(int customerId)
         {
             Customer customer = await _customerRepository.GetByIdAsync(customerId);
 
             if (customer == null)
             {
-                throw new ArgumentNullException();
+                throw new Exception("Customer not found");
             }
             if (customer.IsActive == false)
             {
@@ -65,7 +72,31 @@ namespace InventoryOrderingSystem.Service.Customers
                 throw new Exception($"Customer with name {customerName} not found.");
             }   
             return customer;
-        }     
+        }
 
+        public async Task<LoginResponseModel> LoginCustomer(LoginModel model)
+        {
+            var userData = await _customerRepository.GetByNameAsync(model.Username); //we first get the username
+            if(userData == null)
+            {
+                return new LoginResponseModel
+                {
+                    LoginSuccessful = false,
+                    UserId = 0,
+                    IsAdmin = false
+                };   
+            }
+            //verify password using SecurityHelper, which will hash the entered password and compare it to the stored hash
+            var isPwMatch = SecurityHelper.VerifyPassword(model.Password, userData.Password);
+
+            //if the password doesn't match, we return a response indicating the login was unsuccessful
+            return new LoginResponseModel
+            {
+                LoginSuccessful = isPwMatch,
+                UserId = userData.CustomerId,
+                IsAdmin = false
+            };
+
+        }
     }
 }

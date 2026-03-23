@@ -6,6 +6,8 @@ namespace InventoryOrderingSystem.Repository.Admins
     {
         public Task<Administrator?> GetAdminUserAsync(string username);
         public Task AddAsync(Administrator administrator);
+        
+        public Task<bool> AdminExists(string username);
 
     }
 }

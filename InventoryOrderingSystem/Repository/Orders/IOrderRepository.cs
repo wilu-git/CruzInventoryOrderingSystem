@@ -9,6 +9,8 @@ namespace InventoryOrderingSystem.Repository.Orders
         //Read
         public Task<List<Order>> GetAllAsync();
         public Task<Order?> GetByIdAsync(int id);
+        public Task<int> GetCountAsync();
+        public Task<List<Order>> GetAllOrdersAsync(int page, int pageSize);
         //Update
         public Task UpdateAsync(Order order);
         //Delete

@@ -42,5 +42,19 @@ namespace InventoryOrderingSystem.Service.Orders
         {    
             return _orderRepository.UpdateAsync(order);
         }
+
+        public async Task<int> OrderCountAsync()
+        {
+            var orderCount = await _orderRepository.GetCountAsync();
+
+            return orderCount;
+
+        }
+
+        public async Task<List<Order>> GetAllOrdersAsync(int page, int pageSize)
+        {
+            return await _orderRepository.GetAllOrdersAsync(page, pageSize);
+
+        }
     }
 }

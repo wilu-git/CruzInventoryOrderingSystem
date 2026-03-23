@@ -6,6 +6,7 @@ namespace InventoryOrderingSystem.Service.Admins
     {
         Task<LoginResponseModel> LoginAdmin(LoginModel model);
         Task RegisterAdminAsync(RegistrationModel model);
-        
+        Task<bool> AdminExists(string username);
+
     }
 }

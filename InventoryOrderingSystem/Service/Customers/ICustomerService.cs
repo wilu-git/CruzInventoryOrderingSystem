@@ -1,4 +1,5 @@
-﻿using InventoryOrderingSystem.Models.Database;
+﻿using InventoryOrderingSystem.Models;
+using InventoryOrderingSystem.Models.Database;
 
 namespace InventoryOrderingSystem.Service.Customers
 {
@@ -15,5 +16,8 @@ namespace InventoryOrderingSystem.Service.Customers
         public Task<Customer> GetCustomerByIdAsync(int customerId);
         public Task<Customer> GetCustomerByNameAsync(string customerName);
         public Task<bool> CustomerIsActive(int customerId);
+        public Task<bool> CustomerExists(string username);
+
+        public Task<LoginResponseModel> LoginCustomer(LoginModel model);
     }
 }

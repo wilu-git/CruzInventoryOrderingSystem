@@ -8,7 +8,9 @@
 <head>
     <title>Admin Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="bg-light">
 
@@ -26,9 +28,7 @@
                                 @Html.LabelFor(m => m.Username, new { @class = "form-label fw-semibold" })
                                 @Html.TextBoxFor(m => m.Username, new
                                 {
-                                    @class = "form-control",
-                                                        placeholder = "Enter username"
-                                                        })
+                                    @class = "form-control",placeholder = "Enter username"})
                             @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger small" })
                         </div>
 
@@ -36,8 +36,7 @@
                             @Html.LabelFor(m => m.Password, new { @class = "form-label fw-semibold" })
                             @Html.PasswordFor(m => m.Password, new
                                                         {
-                                    @class = "form-control",
-                                                        placeholder = "Enter password"
+                                    @class = "form-control", placeholder = "Enter password"
                                                         })
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
                         </div>
@@ -45,45 +44,37 @@
                         <div class="d-grid mt-4">
                             <button type="submit" class="btn btn-primary btn-lg">Login</button>
                         </div>
-                                                }
+                        }
 
-                        <div class="text-center mt-3">
-                            <small class="text-muted">Enter your admin credentials to continue.</small>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
-    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    @if (TempData["SuccessMessage"] != null)
+    @if (ViewBag.SuccessMessage != null)
     {
         <script>
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
-                text: '@TempData["SuccessMessage"]',
+                text: '@ViewBag.SuccessMessage',
                 confirmButtonText: 'OK'
             });
         </script>
     }
 
-    @if (TempData["ErrorMessage"] != null)
+    @if (ViewBag.ErrorMessage != null)
     {
         <script>
             Swal.fire({
                 icon: 'error',
                 title: 'Login Failed',
-                text: '@TempData["ErrorMessage"]',
+                text: '@ViewBag.ErrorMessage',
                 confirmButtonText: 'Try Again'
             });
         </script>
+        ViewBag.ErrorMessage = null;
     }
-</body>
+    </body>
 </html>

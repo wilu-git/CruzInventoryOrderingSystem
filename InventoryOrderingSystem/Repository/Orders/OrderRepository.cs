@@ -32,9 +32,23 @@ namespace InventoryOrderingSystem.Repository.Orders
             return orders;
         }
 
+        public async Task<List<Order>> GetAllOrdersAsync(int page, int pageSize)
+        {
+            return await _context.Orders
+               .OrderByDescending(o => o.DateCreated)
+               .Skip((page - 1) * pageSize)
+               .Take(pageSize)
+               .ToListAsync();
+        }
+
         public async Task<Order?> GetByIdAsync(int id)
         {
             return await _context.Orders.FirstOrDefaultAsync(x => x.OrderId == id);
+        }
+
+        public Task<int> GetCountAsync()
+        {
+            throw new NotImplementedException();
         }
 
         public Task UpdateAsync(Order order)

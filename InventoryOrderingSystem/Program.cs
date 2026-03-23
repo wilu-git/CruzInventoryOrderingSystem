@@ -35,6 +35,10 @@ namespace InventoryOrderingSystem
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
+                    options.LoginPath = "/Account/Login"; // Redirect to login page if not authenticated
+                    options.AccessDeniedPath = "/Account/AccessDenied"; // Redirect to access denied page if authorization fails
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Set cookie expiration time
+                    options.SlidingExpiration = true; // Enable sliding expiration to refresh the cookie on each request
                 });
 
             var app = builder.Build();

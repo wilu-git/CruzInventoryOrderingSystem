@@ -20,7 +20,8 @@ namespace InventoryOrderingSystem.Service.Admins
                 // Return unsuccessful login response if user is not found in the database
                 return new LoginResponseModel
                 {
-                    LoginSuccessful = false
+                    LoginSuccessful = false,
+                    
                 };
             }
 
@@ -31,7 +32,8 @@ namespace InventoryOrderingSystem.Service.Admins
             return new LoginResponseModel
             {
                 UserId = userData.AdministratorId,
-                LoginSuccessful = isPwMatch
+                LoginSuccessful = isPwMatch,
+                IsAdmin = true
             };
         }
 
@@ -56,6 +58,11 @@ namespace InventoryOrderingSystem.Service.Admins
             }
             
             
+        }
+
+        public async Task<bool> AdminExists(string username)
+        {
+            return await _repo.AdminExists(username);
         }
     }
 }

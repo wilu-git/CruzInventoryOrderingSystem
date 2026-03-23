@@ -4,14 +4,25 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
+<script src="~/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-<html>
-<head>
-</head>
-<body>
+<div>
+    <p>TODO: Make sidebar inventory, products and user management page</p>
+    <p>Also add Logout button and welcome user in shared layout</p>
+</div>
 
-</body>
-</html>
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        Swal.fire({
+            title: 'Login Success',
+            text: '@TempData["SuccessMessage"]',
+            confirmButtonText: 'OK',
+            timer: 3000
+        });
+    </script>
+}

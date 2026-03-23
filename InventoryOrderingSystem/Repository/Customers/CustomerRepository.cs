@@ -20,6 +20,10 @@ namespace InventoryOrderingSystem.Repository.Customers
             await _context.SaveChangesAsync();
         }
 
+        public async Task<bool> CustomerExists(string username)
+        {
+            return await _context.Customers.AnyAsync(x => x.Username == username);
+        }
 
         public async Task DeleteAsync(int customerId)
         {
@@ -36,7 +40,7 @@ namespace InventoryOrderingSystem.Repository.Customers
             return _context.Customers.ToListAsync();
         }
 
-        public async Task<Customer> GetByIdAsync(int customerId)
+        public async Task<Customer?> GetByIdAsync(int customerId)
         {
             var customer = await _context.Customers.FirstOrDefaultAsync(x => x.CustomerId == customerId);
             return customer;

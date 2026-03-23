@@ -17,6 +17,11 @@ namespace InventoryOrderingSystem.Repository.Admins
             await _context.SaveChangesAsync();
         }
 
+        public async Task<bool> AdminExists(string username)
+        {
+            return await _context.Administrators.AnyAsync(x => x.Username == username);
+        }
+
         public async Task<Administrator?> GetAdminUserAsync(string username)
         {
             var admin = await _context.Administrators.FirstOrDefaultAsync(x => x.Username == username);
